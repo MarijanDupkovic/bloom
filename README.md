@@ -2,11 +2,11 @@
 
 sudo apt-get install redis
 
-#Benötigt ffmpeg
+<b>#Benötigt ffmpeg</b>
 
 sudo apt install ffmpeg
 
-#Benötigt .env Datei mit folgenden Variablen
+<b>#Benötigt .env Datei mit folgenden Variablen</b>
 
 DJANGO_SECRET = 'your-secret'
 
