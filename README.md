@@ -5,6 +5,7 @@ sudo apt-get install redis
 sudo apt install ffmpeg
 
 #Benötigt .env Datei mit folgenden Variablen
+
 DJANGO_SECRET = 'your-secret'
 
 MAIL_HOST = ''
