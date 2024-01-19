@@ -1,7 +1,9 @@
 #Benötigt Redis 
+
 sudo apt-get install redis
 
 #Benötigt ffmpeg
+
 sudo apt install ffmpeg
 
 #Benötigt .env Datei mit folgenden Variablen
