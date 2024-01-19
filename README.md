@@ -1,4 +1,4 @@
-#Benötigt Redis 
+<b>#Benötigt Redis </b>
 
 sudo apt-get install redis
 
