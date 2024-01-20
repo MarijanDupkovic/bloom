@@ -6,3 +6,4 @@ class VideoItemSerializer(serializers.ModelSerializer):
         model = VideoItem
         fields = ('id','title','author','video_file','video_file_1080p','created_at')
        
+    
