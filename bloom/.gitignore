@@ -1,0 +1,57 @@
+# Ignore compiled binaries
+*.exe
+*.dll
+*.so
+*.env
+*.sqlite
+*.db
+*.sqlite3
+*.db3
+*.pyc
+*.pyo
+*.pyd
+*.class
+*.psd
+*.db
+*.sublime-project
+*.sublime-workspace
+*.svg
+*.ico
+*.icns
+*.gitattributes
+
+
+# Ignore build output directories
+/build/
+/dist/
+/env/
+/__pycache__/
+/.pytest_cache/
+/.mypy_cache/
+/.tox/
+/.venv/
+/.vscode/
+/.idea/
+/.git/
+/migrations/
+
+
+# Ignore IDE and editor specific files
+.vscode/
+.idea/
+
+# Ignore system and temporary files
+.DS_Store
+Thumbs.db
+*.tmp
+
+# Ignore log files
+*.log
+
+# Ignore package manager directories
+/node_modules/
+/packages/
+
+# Ignore configuration files with sensitive information
+config.ini
+secrets.json

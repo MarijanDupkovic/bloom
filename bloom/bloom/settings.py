@@ -28,8 +28,8 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
-
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost','10.10.10.12','10.10.10.4']
+TRUSTED_ORIGINS = ['10.10.10.12']
 
 # Application definition
 
@@ -84,7 +84,8 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'bloom.wsgi.application'
-
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
@@ -180,3 +181,9 @@ RQ_QUEUES = {
         'DEFAULT_TIMEOUT': 360,
     },
 }
+CORS_ALLOWED_ORIGINS = [
+    'https://be.recsync.app',
+]
+CSRF_TRUSTED_ORIGINS = [
+    'https://be.recsync.app',
+]
