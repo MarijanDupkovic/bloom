@@ -24,6 +24,7 @@ from Authorization.views import LoginView, RegistrationView
 from Video.views import VideoItemViewSet
 from Authorization.utils import activate_user, logout_user
 from user.views import UserViewSet
+from Authorization.utils import activate_user, logout_user, send_reset_Password_mail_user, reset_password
 
 router = routers.DefaultRouter()
 
@@ -38,6 +39,9 @@ urlpatterns = [
     path('django-rq/', include('django_rq.urls')),
     path('activate/<str:token>/', activate_user, name='activate_user'),
     path('logout/<str:token>/', logout_user, name='logout_user'),
+    path('resetPasswordMail/', send_reset_Password_mail_user, name='send_reset_Password_mail_user'),
+   
+    path('resetPassword/<str:token>/', reset_password, name='reset_password'),
     path('',include(router.urls))
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
 

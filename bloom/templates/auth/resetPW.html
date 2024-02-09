@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>recsync: Passwort zurücksetzen</title>
+    <style>
+      
+    </style>
+</head>
+<body>
+    <table width="100%" cellpadding="0" cellspacing="0">
+        <tr>
+            <td align="center"> 
+                <table width="600" cellpadding="0" cellspacing="0" style="border-collapse: collapse;">
+                    <tr>
+                        <td style="padding: 40px 0; text-align: center;"> 
+                            <p style="color: rgb(217,27,13); font-weight: bold; font-size: 25px;">recsync</p>
+                            <h1>Rücksetzung deines Passwortes</h1>
+                            <p>Hallo {{ username }} ,</p>
+                            <p>Es scheint als hättest du dein Passwort vergessen.</p>
+                            <p>Wenn dies zutrifft, klicke bitte auf den Button "Zurücksetzen", um dein Passwort zurückzusetzen.</p>
+                            <p style="margin: 25px 0 25px 0;"><a href="http://localhost:4200/resetPassword/{{ token }}" style="background-color: #007bff; color: #ffffff; padding: 12px 24px; text-decoration: none; border-radius: 5px; font-weight: bold;">Zurücksetzen</a></p>
+                            <p>Mit freundlichen Grüßen,<br/>Dein recsync-Team</p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
