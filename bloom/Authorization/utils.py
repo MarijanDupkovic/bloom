@@ -7,6 +7,24 @@ from django.dispatch import receiver
 from user.models import CustomUser
 from rest_framework.decorators import api_view
 from rest_framework.authtoken.models import Token
+from django.core.exceptions import ObjectDoesNotExist
+from rest_framework import status
+
+@api_view(('POST',))     
+def send_reset_Password_mail_user(request):
+    try:
+        email = request.data.get('email')
+        user = CustomUser.objects.get(email=email)
+    except ObjectDoesNotExist:
+        return Response('User not found', status=status.HTTP_404_NOT_FOUND)
+    token = Token.objects.get_or_create(user=user)
+    context = {'username': user.username, 'token': token[0]}
+    rendered = render_to_string("auth/resetPW.html", context)
+    subject = 'Dogflix:Reset your Password'
+    email_from = settings.EMAIL_HOST_USER
+    recipients = [user.email]
+    send_mail(subject, '',  email_from, recipients, html_message=rendered)
+    return Response({'message':'Reset password mail send successfully'})
 
 def send_register_mail_to_newuser(user,token):
     context = {'username': user.username, 'token': token}
@@ -33,19 +51,14 @@ def logout_user(request, token):
     return Response({'message': 'User logged out successfully.'})
 
 
-def change_password(username, pw1, pw2):
+@api_view(('POST',))     
+def reset_password(request,token):
+    pw1 = request.data.get('pw1')
+    pw2 = request.data.get('pw2')
     if pw1 != pw2:
-        raise Exception("pw1 not equal to pw2")
+        return Response({'message':'Passwort stimmt nicht mit Passwort2 überein!'})
 
-    user = CustomUser.objects.get(username=username)
-
+    user = CustomUser.objects.get(auth_token=token)
     user.set_password(pw1)
-
-    send_mail(
-        "Your password was changed successfully",
-
-        [user.email],
-        fail_silently=False,
-    )
-
     user.save()
+    return Response({'message':'Password successfully changed!'})

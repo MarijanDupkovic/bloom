@@ -56,7 +56,7 @@ class RegistrationView(APIView):
 
                 user = get_user_model().objects.get(email=serializer.validated_data['email'])
                 token, created = Token.objects.get_or_create(user=user)
-                #send_register_mail_to_newuser(user, token)
+                send_register_mail_to_newuser(user, token)
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
             
             if 'email' in serializer.errors or 'username' in serializer.errors:
