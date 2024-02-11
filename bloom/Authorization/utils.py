@@ -20,7 +20,7 @@ def send_reset_Password_mail_user(request):
     token = Token.objects.get_or_create(user=user)
     context = {'username': user.username, 'token': token[0]}
     rendered = render_to_string("auth/resetPW.html", context)
-    subject = 'Dogflix:Reset your Password'
+    subject = 'RECSYNC:Reset your Password'
     email_from = settings.EMAIL_HOST_USER
     recipients = [user.email]
     send_mail(subject, '',  email_from, recipients, html_message=rendered)
@@ -29,7 +29,7 @@ def send_reset_Password_mail_user(request):
 def send_register_mail_to_newuser(user,token):
     context = {'username': user.username, 'token': token}
     rendered = render_to_string("auth/signup.html", context)
-    subject = 'Welcome to Dogflix'
+    subject = 'Welcome to RECSYNC'
     html_message = rendered
     email_from = settings.EMAIL_HOST_USER
     recipient_list = [user.email]
