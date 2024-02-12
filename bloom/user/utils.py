@@ -7,6 +7,6 @@ from user.models import CustomUser
 @api_view(('put',))
 def change_profile_img(request, token):
     user = get_object_or_404(CustomUser, auth_token=token)
-    user.profile_picture = request.fields.get('profile_picture')
+    user.profile_picture = request.data.get('profile_picture')
     user.save()
     return Response({'message': 'Profile picture updated successfully!'})
