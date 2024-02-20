@@ -34,6 +34,7 @@
 /.idea/
 /.git/
 /migrations/
+/media/
 
 
 # Ignore IDE and editor specific files

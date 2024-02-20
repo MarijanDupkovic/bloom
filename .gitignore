@@ -55,3 +55,5 @@ Thumbs.db
 # Ignore configuration files with sensitive information
 config.ini
 secrets.json
+bloom/media/
+
