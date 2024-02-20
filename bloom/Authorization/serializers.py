@@ -28,6 +28,8 @@ class RegistrationSerializer(serializers.ModelSerializer):
     fields = ('username', 'email', 'password', 'password2')
     extra_kwargs = {
       "username": {"write_only": True, "required": True},
+      "first_name": {"write_only": True, "required": True},
+      "last_name": {"write_only": True, "required": True},
       "email": {"write_only": True, "required": True},
       "password": {"write_only": True , "required": True},
       "password2": {"write_only": True , "required": True},
@@ -47,6 +49,8 @@ class RegistrationSerializer(serializers.ModelSerializer):
   def create(self, validated_data):
     user = CustomUser.objects.create(
       username=validated_data["username"],
+      first_name=validated_data["first_name"],
+      last_name=validated_data["last_name"],
       email=validated_data["email"],
     )
     user.is_active = False
