@@ -35,7 +35,6 @@ class RegistrationSerializer(serializers.ModelSerializer):
       "password2": {"write_only": True , "required": True},
       "street": {"write_only": True , "required": True},
       "city": {"write_only": True , "required": True},
-      "state": {"write_only": True , "required": True},
       "zip_code": {"write_only": True , "required": True},
       "country": {"write_only": True , "required": True},
 
@@ -62,7 +61,7 @@ class RegistrationSerializer(serializers.ModelSerializer):
       state=validated_data["state"],
       zip_code=validated_data["zip_code"],
       country=validated_data["country"]
-      
+
     )
     user.is_active = False
     user.set_password(validated_data["password"])

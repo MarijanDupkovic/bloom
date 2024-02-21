@@ -15,7 +15,6 @@ class CustomUserAdmin(admin.ModelAdmin):
                     'profile_picture',
                     'street',
                     'city',
-                    'state',
                     'zip_code',
                     'country'
 
