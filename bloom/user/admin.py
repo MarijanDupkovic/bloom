@@ -13,6 +13,12 @@ class CustomUserAdmin(admin.ModelAdmin):
             {
                 'fields':(
                     'profile_picture',
+                    'street',
+                    'city',
+                    'state',
+                    'zip_code',
+                    'country'
+
                 )
             }
         ),

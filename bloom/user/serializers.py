@@ -7,4 +7,4 @@ class UserSerializer(serializers.ModelSerializer):
     videoitem_set = VideoItemSerializer(many=True, read_only=True)
     class Meta:
         model = CustomUser
-        fields = ['id', 'username','first_name','last_name', 'email','profile_picture','videoitem_set']
+        fields = ['id', 'username','first_name','last_name', 'email', 'street','city','state','zip_code','country' ,'profile_picture','videoitem_set']
