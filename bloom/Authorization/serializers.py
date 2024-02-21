@@ -25,7 +25,7 @@ class RegistrationSerializer(serializers.ModelSerializer):
   
   class Meta:
     model = CustomUser
-    fields = ('username', 'email', 'password', 'password2', 'first_name', 'last_name')
+    fields = ('username', 'email', 'password', 'password2', 'first_name', 'last_name', 'street', 'city', 'zip_code', 'country')
     extra_kwargs = {
       "username": {"write_only": True, "required": True},
       "first_name": {"write_only": True, "required": True},
@@ -58,7 +58,6 @@ class RegistrationSerializer(serializers.ModelSerializer):
       email=validated_data["email"],
       street=validated_data["street"],
       city=validated_data["city"],
-      state=validated_data["state"],
       zip_code=validated_data["zip_code"],
       country=validated_data["country"]
 
