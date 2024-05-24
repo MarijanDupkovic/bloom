@@ -184,7 +184,7 @@ RQ_QUEUES = {
 CORS_ALLOWED_ORIGINS = [
     'https://be.recsync.app',
     'http://localhost:4200',
-    'http://test.marijandupkovic.com',
+    'https://test.marijandupkovic.com',
 ]
 CSRF_TRUSTED_ORIGINS = [
     'https://be.recsync.app',
