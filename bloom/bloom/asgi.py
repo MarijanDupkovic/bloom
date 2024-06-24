@@ -11,7 +11,7 @@ import os
 from django.core.asgi import get_asgi_application
 from channels.routing import ProtocolTypeRouter, URLRouter
 from channels.auth import AuthMiddlewareStack
-from Video import urls
+
 from bloom import Video
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'bloom.settings')
@@ -20,7 +20,7 @@ application = ProtocolTypeRouter({
   "http": get_asgi_application(),
   "websocket": AuthMiddlewareStack(
         URLRouter(
-            urls.websocket_urlpatterns
+            Video.routing.websocket_urlpatterns
         )
     ),
 })
