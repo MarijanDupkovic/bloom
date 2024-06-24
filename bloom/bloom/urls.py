@@ -32,6 +32,7 @@ router = routers.DefaultRouter()
 router.register(r"videos", VideoItemViewSet) 
 router.register(r"user", UserViewSet, basename="user")
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('login/', LoginView.as_view(),name='login'),
