@@ -49,7 +49,6 @@ INSTALLED_APPS = [
     'django_rq',
     'import_export',
     'debug_toolbar',
-    'channels'
 ]
 
 AUTH_USER_MODEL = 'user.CustomUser'
