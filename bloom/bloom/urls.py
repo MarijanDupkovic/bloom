@@ -21,7 +21,7 @@ from django.contrib import admin
 from django.urls import include, path
 from rest_framework import routers
 from Authorization.views import LoginView, RegistrationView
-from Video.views import VideoItemViewSet
+from Video.views import VideoItemViewSet, video_by_token
 from Authorization.utils import activate_user, logout_user
 from user.utils import change_profile_img
 from user.views import UserViewSet
@@ -44,6 +44,7 @@ urlpatterns = [
     path('resetPasswordMail/', send_reset_Password_mail_user, name='send_reset_Password_mail_user'),
     path('changePicture/<str:token>/', change_profile_img, name='change_profile_img'),
     path('resetPassword/<str:token>/', reset_password, name='reset_password'),
+    path('video/<uuid:token>/', video_by_token, name='video_by_token'),
     path('',include(router.urls))
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
 

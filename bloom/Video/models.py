@@ -10,7 +10,7 @@ class VideoItem(models.Model):
     created_at = models.DateField(_("Created At"), default=datetime.date.today)
     video_file = models.FileField(upload_to='videos', blank=True, null=True)
     video_file_1080p = models.FileField(upload_to='videos', blank=True, null=True)
-    
+    access_token = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
     def save(self, *args, **kwargs):
         if not self.title:
            self.title = f'_{uuid.uuid4()}'

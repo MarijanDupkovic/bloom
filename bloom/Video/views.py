@@ -1,3 +1,5 @@
+from django.http import HttpResponse
+from django.shortcuts import get_object_or_404
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
 from django.conf import settings
@@ -22,3 +24,10 @@ class VideoItemViewSet(viewsets.ModelViewSet):
            cache.set('videoList', queryset, CACHE_TTL)
 
      return queryset
+
+
+
+    
+def video_by_token(request, token):
+      video = get_object_or_404(VideoItem, access_token=token)
+      return HttpResponse(f"Video: {video.id}")
