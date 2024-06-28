@@ -27,7 +27,19 @@ class VideoItemViewSet(viewsets.ModelViewSet):
 
 
 
-    
+from django.http import StreamingHttpResponse, Http404
+
 def video_by_token(request, token):
       video = get_object_or_404(VideoItem, access_token=token)
-      return HttpResponse(f"Video: {video.id}")
+      try:
+            video_file_path = video.video_file.path  # Angenommen, Ihr VideoItem-Modell hat ein Feld 'video_file'
+            def stream_video(video_path):
+                  with open(video_path, 'rb') as video_file:
+                        while chunk := video_file.read(8192):
+                              yield chunk
+
+            response = StreamingHttpResponse(streaming_content=stream_video(video_file_path))
+            response['Content-Type'] = 'video/mp4'  # Stellen Sie sicher, dass dieser Typ Ihrem Videotyp entspricht
+            return response
+      except AttributeError:
+            raise Http404("Video file not found.")
