@@ -9,6 +9,7 @@ class VideoItem(models.Model):
     author = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True, blank=True)
     created_at = models.DateField(_("Created At"), default=datetime.date.today)
     video_file = models.FileField(upload_to='videos', blank=True, null=True)
+    video_file_apple = models.FileField(upload_to='videos', blank=True, null=True)
     video_file_1080p = models.FileField(upload_to='videos', blank=True, null=True)
     access_token = models.UUIDField(default=uuid.uuid4, editable=False, unique=True, blank=True, null=True)
     def save(self, *args, **kwargs):

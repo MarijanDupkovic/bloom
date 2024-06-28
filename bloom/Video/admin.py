@@ -11,6 +11,6 @@ class VideoItemRessource(resources.ModelResource):
 
 @admin.register(VideoItem)
 class VideoAdmin(ImportExportModelAdmin):
-    list_display = ('id','title','author','video_file','video_file_1080p','created_at','access_token')
+    list_display = ('id','title','author','video_file','video_file_apple','video_file_1080p','created_at','access_token')
 
 
