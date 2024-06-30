@@ -1,3 +1,5 @@
+import os
+import re
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from rest_framework import viewsets
@@ -29,17 +31,42 @@ class VideoItemViewSet(viewsets.ModelViewSet):
 
 from django.http import StreamingHttpResponse, Http404
 
-def video_by_token(request, token):
-      video = get_object_or_404(VideoItem, access_token=token)
-      try:
-            video_file_path = video.video_file.path  
-            def stream_video(video_path):
-                  with open(video_path, 'rb') as video_file:
-                        while chunk := video_file.read(8192):
-                              yield chunk
+from django.http import StreamingHttpResponse, Http404, HttpResponse
+from django.shortcuts import get_object_or_404
+from .models import VideoItem
 
-            response = StreamingHttpResponse(streaming_content=stream_video(video_file_path))
-            response['Content-Type'] = 'video/mp4'  
-            return response
-      except AttributeError:
-            raise Http404("Video file not found.")
+def video_by_token(request, token):
+    user_agent = request.META.get('HTTP_USER_AGENT', '').lower()
+    video = get_object_or_404(VideoItem, access_token=token)
+    try:
+        video_file_path = video.video_file_apple.path if 'iphone' in user_agent or 'ipad' in user_agent or ('safari' in user_agent and not 'chrome' in user_agent) else video.video_file.path 
+        print(video_file_path)
+        def stream_video(video_path, start=None, end=None):
+            with open(video_path, 'rb') as video_file:
+                if start:
+                    video_file.seek(start)
+                while True:
+                    bytes_to_read = min(8192, end - video_file.tell() + 1) if end else 8192
+                    chunk = video_file.read(bytes_to_read)
+                    if not chunk:
+                        break
+                    yield chunk
+
+        range_header = request.META.get('HTTP_RANGE', '').strip()
+        range_match = re.match(r'bytes=(\d+)-(\d*)', range_header)
+        size = os.path.getsize(video_file_path)
+        content_type = 'video/mp4'
+        if range_match:
+            start, end = range_match.groups()
+            start = int(start)
+            end = int(end) if end else size - 1
+            response = StreamingHttpResponse(stream_video(video_file_path, start, end), status=206, content_type=content_type)
+            response['Content-Range'] = f'bytes {start}-{end}/{size}'
+        else:
+            response = StreamingHttpResponse(stream_video(video_file_path), content_type=content_type)
+        response['Accept-Ranges'] = 'bytes'
+        response['Content-Length'] = str(size if not range_match else end - start + 1)
+        response['Content-Disposition'] = 'inline; filename="video.mp4"'
+        return response
+    except AttributeError:
+        raise Http404("Video file not found.")
