@@ -68,26 +68,26 @@ class RegistrationSerializer(serializers.ModelSerializer):
 
     return user
 
-def authenticate_with_email_and_password(email, password):
+def authenticate_with_username_and_password(username, password):
     user = get_user_model()
     try:
-        user = user.objects.get(email=email)
+        user = user.objects.get(username=username)
         if user.check_password(password):
             return user
     except user.DoesNotExist:
         return None
 
 class LoginSerializer(serializers.Serializer):
-    email = serializers.EmailField(required=True)
+    username = serializers.CharField(required=True,write_only=True)
     password = serializers.CharField(write_only=True, required=True, style={'input_type': 'password', 'placeholder': 'Password'})
     
     class Meta:
         model = CustomUser
-        fields = ('email','password')
+        fields = ('username','password')
         read_only_fields = ('username', )
 
     def validate(self, data):
-        user = authenticate_with_email_and_password(data["email"], data["password"])
+        user = authenticate_with_username_and_password(data["username"], data["password"])
         if user:
             if user.is_active:
                 return {'username': user.username, 'email': user.email, 'password': user.password}
