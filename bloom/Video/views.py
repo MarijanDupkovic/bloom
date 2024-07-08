@@ -29,9 +29,8 @@ class VideoItemViewSet(viewsets.ModelViewSet):
 
 
 
-from django.http import StreamingHttpResponse, Http404
 
-from django.http import StreamingHttpResponse, Http404, HttpResponse
+from django.http import StreamingHttpResponse, Http404
 from django.shortcuts import get_object_or_404
 from .models import VideoItem
 

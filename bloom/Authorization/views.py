@@ -22,9 +22,9 @@ class LoginView(ObtainAuthToken):
 
         if serializer.is_valid():
             userData = serializer.validated_data
-            if userData['email']:
+            if userData['username']:
                 try:
-                    user = get_user_model().objects.get(email=userData['email'])
+                    user = get_user_model().objects.get(username=userData['username'])
                     token, created = Token.objects.get_or_create(user=user)
                     return Response({'token': token.key, 'user_id': user.pk, 'email': user.email})    
                 except user.DoesNotExist:
