@@ -185,6 +185,7 @@ CORS_ALLOWED_ORIGINS = [
     'https://be.recsync.app',
     'http://localhost:4200',
     'https://test.marijandupkovic.com',
+    'https://capturevue.de',
 ]
 CSRF_TRUSTED_ORIGINS = [
     'https://be.recsync.app',

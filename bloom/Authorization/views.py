@@ -34,9 +34,9 @@ class LoginView(ObtainAuthToken):
                   
         else:
             userData = serializer.data
-            if serializer.data.get('email'):
+            if serializer.data.get('username'):
                 try:
-                    user = get_user_model().objects.get(email=userData['email'])
+                    user = get_user_model().objects.get(username=userData['username'])
                     if not user.is_active:
                         return Response('Email not activated!',status=status.HTTP_403_FORBIDDEN)
                     else:
