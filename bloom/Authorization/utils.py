@@ -50,6 +50,20 @@ def logout_user(request, token):
     
     return Response({'message': 'User logged out successfully.'})
 
+@api_view(('GET',))
+def delete_user(request, token):
+    auth_header = request.headers.get('Authorization')
+    if auth_header:
+        token = auth_header.split(' ')[1]
+    else:
+        return Response({'message': 'Unauthorized'}, status=401)
+    user = get_object_or_404(CustomUser, auth_token=token)
+    if request.user == user or request.user.is_staff:
+        user.delete()
+        return Response({'message': 'User deleted successfully.'})
+    else:
+        return Response({'message': 'Unauthorized'}, status=401)
+
 
 @api_view(('POST',))     
 def reset_password(request,token):

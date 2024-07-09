@@ -25,7 +25,7 @@ from Video.views import VideoItemViewSet, video_by_token
 from Authorization.utils import activate_user, logout_user
 from user.utils import change_profile_img
 from user.views import UserViewSet
-from Authorization.utils import activate_user, logout_user, send_reset_Password_mail_user, reset_password
+from Authorization.utils import activate_user,delete_user, logout_user, send_reset_Password_mail_user, reset_password
 
 router = routers.DefaultRouter()
 
@@ -40,6 +40,7 @@ urlpatterns = [
     path("__debug__/", include("debug_toolbar.urls")),
     path('django-rq/', include('django_rq.urls')),
     path('activate/<str:token>/', activate_user, name='activate_user'),
+    path('delete_user/<str:token>/', delete_user, name='delete_user'),
     path('logout/<str:token>/', logout_user, name='logout_user'),
     path('resetPasswordMail/', send_reset_Password_mail_user, name='send_reset_Password_mail_user'),
     path('changePicture/<str:token>/', change_profile_img, name='change_profile_img'),
