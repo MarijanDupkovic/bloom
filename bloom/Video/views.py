@@ -71,16 +71,17 @@ def video_by_token(request, token):
     
 
 from django.views.decorators.csrf import csrf_exempt
+from rest_framework.decorators import api_view
+import django_rq
 
-@csrf_exempt
 def upload_video(request):
-    if request.method == 'POST':
-        video_data = request.body
-        video_path = os.path.join('liveTest', 'live_stream.mp4')
+    print("upload_video")
+    print(request.body)
+    video_data = request.body
+    video_path = os.path.join('liveTest', 'live_stream.mp4')
 
-        with open(video_path, 'ab') as f:
+    with open(video_path, 'ab') as f:
             f.write(video_data)
 
-        return HttpResponse(status=200)
-    else:
-        return HttpResponse(status=405)
+    return HttpResponse(status=200)
+    
