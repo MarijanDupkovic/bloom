@@ -39,7 +39,6 @@ def video_by_token(request, token):
     video = get_object_or_404(VideoItem, access_token=token)
     try:
         video_file_path = video.video_file_apple.path if 'iphone' in user_agent or 'ipad' in user_agent or ('safari' in user_agent and not 'chrome' in user_agent) else video.video_file.path 
-        print(video_file_path)
         def stream_video(video_path, start=None, end=None):
             with open(video_path, 'rb') as video_file:
                 if start:
@@ -69,3 +68,19 @@ def video_by_token(request, token):
         return response
     except AttributeError:
         raise Http404("Video file not found.")
+    
+
+from django.views.decorators.csrf import csrf_exempt
+
+@csrf_exempt
+def upload_video(request):
+    if request.method == 'POST':
+        video_data = request.body
+        video_path = os.path.join('liveTest', 'live_stream.mp4')
+
+        with open(video_path, 'ab') as f:
+            f.write(video_data)
+
+        return HttpResponse(status=200)
+    else:
+        return HttpResponse(status=405)
